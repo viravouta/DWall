@@ -1,0 +1,25 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	
+	<ui:style>
+	</ui:style>
+	
+	<g:HTMLPanel ui:field="pageContainer">
+		<g:SimplePanel ui:field="wallItem1">
+			<g:Image url="image/42.png" />
+		</g:SimplePanel>
+		
+		<g:SimplePanel ui:field="wallItem2">
+			<g:Image url="image/couscous.jpg" />
+		</g:SimplePanel>
+		
+		<g:SimplePanel ui:field="wallItem3">
+			<g:Image url="image/justeDebout.jpg" />
+		</g:SimplePanel>
+		
+		<g:SimplePanel ui:field="wallItem4">
+			<g:Image url="image/googleIO.jpg" />
+		</g:SimplePanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

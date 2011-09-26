@@ -1,0 +1,6 @@
+.gwt/
+.gwt/.gwt-log
+war/WEB-INF/classes/
+war/WEB-INF/deploy/
+war/dwall/
+gwt-unitCache/

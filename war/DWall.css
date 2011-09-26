@@ -1,0 +1,9 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+.wallItem {
+	width: 200px;
+	height: 200px;
+}
