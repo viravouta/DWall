@@ -6,20 +6,28 @@
 	</ui:style>
 	
 	<g:HTMLPanel ui:field="pageContainer">
-		<g:SimplePanel ui:field="wallItem1">
-			<g:Image url="image/42.png" />
-		</g:SimplePanel>
-		
-		<g:SimplePanel ui:field="wallItem2">
-			<g:Image url="image/couscous.jpg" />
-		</g:SimplePanel>
-		
-		<g:SimplePanel ui:field="wallItem3">
-			<g:Image url="image/justeDebout.jpg" />
-		</g:SimplePanel>
-		
-		<g:SimplePanel ui:field="wallItem4">
-			<g:Image url="image/googleIO.jpg" />
+		<g:SimplePanel ui:field="gridContainer">
+			<g:Grid ui:field="grid" cellSpacing="0">
+				<g:row>
+					<g:customCell>
+						<g:Image ui:field="image1" url="image/42.png" />
+					</g:customCell>
+	
+					<g:customCell>
+						<g:Image ui:field="image2" url="image/couscous.jpg" />
+					</g:customCell>
+				</g:row>
+				
+				<g:row>
+					<g:customCell>
+						<g:Image ui:field="image3" url="image/justeDebout.jpg" />
+					</g:customCell>
+	
+					<g:customCell>
+						<g:Image ui:field="image4" url="image/googleIO.jpg" />
+					</g:customCell>
+				</g:row>
+			</g:Grid>
 		</g:SimplePanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

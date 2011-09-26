@@ -4,7 +4,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -13,7 +15,11 @@ public class PageContainer extends Composite {
 	@UiField
 	HTMLPanel pageContainer;
 	@UiField
-	SimplePanel wallItem1, wallItem2, wallItem3, wallItem4;
+	SimplePanel gridContainer;
+	@UiField
+	Grid grid;
+	@UiField
+	Image image1, image2, image3, image4;
 	
 	interface PageContainerUiBinder extends UiBinder<Widget, PageContainer> {}
 	private static PageContainerUiBinder uiBinder = GWT.create(PageContainerUiBinder.class);
@@ -27,10 +33,13 @@ public class PageContainer extends Composite {
 	private void initWidgetCss() {
 		pageContainer.addStyleName("pageContainer");
 		
-		wallItem1.addStyleName("wallItem");
-		wallItem2.addStyleName("wallItem");
-		wallItem3.addStyleName("wallItem");
-		wallItem4.addStyleName("wallItem");
+		gridContainer.addStyleName("gridContainer");
+		grid.addStyleName("grid");
+		
+		image1.addStyleName("image");
+		image2.addStyleName("image");
+		image3.addStyleName("image");
+		image4.addStyleName("image");
 	}
 	
 }
