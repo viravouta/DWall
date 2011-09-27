@@ -5,7 +5,7 @@
 	<ui:style>
 	</ui:style>
 	
-	<g:HTMLPanel ui:field="pageContainer">
+	<g:AbsolutePanel ui:field="pageContainer">
 		<g:SimplePanel ui:field="gridContainer">
 			<g:Grid ui:field="grid" cellSpacing="0">
 				<g:row>
@@ -29,5 +29,5 @@
 				</g:row>
 			</g:Grid>
 		</g:SimplePanel>
-	</g:HTMLPanel>
+	</g:AbsolutePanel>
 </ui:UiBinder> 
