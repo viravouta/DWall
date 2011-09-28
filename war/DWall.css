@@ -27,6 +27,7 @@ body {
 .imageContainer {
 	width: 316px;
 	height: 198px;
+/* 	position: absolute; */
 	background-color: #FF0;
 }
 

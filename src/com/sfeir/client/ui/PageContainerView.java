@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -16,6 +18,7 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.sfeir.client.animation.ChocAnimation;
 
 /**
  * This class defines page container view.
@@ -81,6 +84,94 @@ public class PageContainerView extends Composite {
 		this.initWidgets();
 		this.initWidgetsCss();
 		this.initWidgetsHandler();
+		
+		this.initAnimation();
+	}
+
+	private void initAnimation() {
+	    
+	    for(SimplePanel panel : imageContainers){
+		panel.getElement().getStyle().setPosition(Position.ABSOLUTE);
+		panel.getElement().getStyle().setTop(-99, Unit.PX);
+		panel.getElement().getStyle().setLeft(319, Unit.PX);
+	    }
+
+	    ChocAnimation animation1 = new ChocAnimation(imageContainer1, 319, -99, 1, -299);
+	    final ChocAnimation animation2 = new ChocAnimation(imageContainer2, 319, -99, 319, -299);
+	    final ChocAnimation animation3 = new ChocAnimation(imageContainer3, 319, -99, 637, -299);
+	    final ChocAnimation animation4 = new ChocAnimation(imageContainer4, 319, -99, 1, -99);
+	    //final ChocAnimation animation5 = new ChocAnimation(imageContainer5, 319, -99, 319, -99);
+	    final ChocAnimation animation6 = new ChocAnimation(imageContainer6, 319, -99, 637, -99);
+	    final ChocAnimation animation7 = new ChocAnimation(imageContainer7, 319, -99, 1, 101);
+	    final ChocAnimation animation8 = new ChocAnimation(imageContainer8, 319, -99, 319, 101);
+	    final ChocAnimation animation9 = new ChocAnimation(imageContainer9, 319, -99, 637, 101);
+	    
+	    final Timer timer7 = new Timer() {
+	        @Override
+	        public void run() {
+	            animation9.run(1000);
+	        }
+	    };
+	    
+	    final Timer timer6 = new Timer() {
+	        @Override
+	        public void run() {
+	            animation8.run(1000);
+	            timer7.schedule(1000);
+	        }
+	    };
+	    
+	    
+	    final Timer timer5 = new Timer() {
+	        @Override
+	        public void run() {
+	            animation7.run(1000);
+	            timer6.schedule(1000);
+	        }
+	    };
+	    
+	    final Timer timer4 = new Timer() {
+	        @Override
+	        public void run() {
+	            animation6.run(1000);
+	            timer5.schedule(1000);
+	        }
+	    };
+	    
+	    final Timer timer3 = new Timer() {
+	        @Override
+	        public void run() {
+	            animation4.run(1000);
+	            timer4.schedule(1000);
+	        }
+	    };
+	    
+	    final Timer timer2 = new Timer() {
+	        @Override
+	        public void run() {
+	            animation3.run(1000);
+	            timer3.schedule(1000);
+	        }
+	    };
+	    Timer timer = new Timer() {
+	        @Override
+	        public void run() {
+	            animation2.run(1000);
+	            timer2.schedule(1000);
+	        }
+	    };
+	    
+	    
+	    animation1.run(1000);
+	    
+	    timer.schedule(1000);
+//	    animation3.run(2000);
+//	    animation4.run(2000);
+//	    animation5.run(2000);
+//	    animation6.run(2000);
+//	    animation7.run(2000);
+//	    animation8.run(2000);
+//	    animation9.run(2000);
 	}
 
 	/**
