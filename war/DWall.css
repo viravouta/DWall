@@ -36,7 +36,6 @@ body {
 	padding: 5px 8px;
 	
 	-webkit-transition: all 1s ease;
-	
 }
 
 .imageClicked {
@@ -47,17 +46,11 @@ body {
 }
 
 .imageFirstColumnClicked { margin-left: -1px; }
-
 .imageSecondColumnClicked { margin-left: -319px; }
-
 .imageThirdColumnClicked { margin-left: -637px; }
-
 .imageFirstRowClicked { margin-top: -1px; }
-
 .imageSecondRowClicked { margin-top: -201px; }
-
 .imageThirdRowClicked { margin-top: -401px; }
-
 .image:hover { cursor: pointer; }
 .imageClicked:hover { cursor: pointer; }
 
@@ -68,7 +61,16 @@ body {
 	background-color: #F00;
 }
 
+.contentAfterClickImage {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
 .minus {
+	position: absolute;
+	top: 20px;
+	right: 20px;
 	width: 30px;
 	height: 30px;
 	background: url(image/minus.png) no-repeat center;
@@ -80,6 +82,9 @@ body {
 }
 
 .menu {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
 	width: 30px;
 	height: 30px;
 	background: url(image/menu.png) no-repeat center;
