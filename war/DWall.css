@@ -3,7 +3,7 @@ body {
 	padding: 0px;
 }
 
-.pageContainer {
+.wallContainer {
 	width: 950px;
 	height: 600px;
 	margin: 0px auto;
@@ -11,23 +11,29 @@ body {
 }
 
 .gridContainer {
+	position: absolute;
 	width: 100%;
 	height: 1px;
-	position: absolute;
 	margin-top: 50%;
 }
 
 .grid {
-	width: 650px;
-	height: 434px;
+	width: 100%;
+	height: 600px;
 	background-color: #F00;
-	margin: -217px auto 0px auto;
+	margin: -300px auto 0px auto;
+}
+
+.imageContainer {
+	width: 316px;
+	height: 198px;
+	background-color: #FF0;
 }
 
 .image {
 	width: 300px;
 	height: 188px;
-	margin: 10px;
+	padding: 5px 8px;
 	
 	-webkit-transition: all 1s ease;
 	
@@ -36,10 +42,50 @@ body {
 .imageClicked {
 	width: 950px;
 	height: 600px;
-	margin: -85px 0px 0px -2px;
 	
 	-webkit-transition: all 1s ease;
 }
 
+.imageFirstColumnClicked { margin-left: -1px; }
+
+.imageSecondColumnClicked { margin-left: -319px; }
+
+.imageThirdColumnClicked { margin-left: -637px; }
+
+.imageFirstRowClicked { margin-top: -1px; }
+
+.imageSecondRowClicked { margin-top: -201px; }
+
+.imageThirdRowClicked { margin-top: -401px; }
+
 .image:hover { cursor: pointer; }
 .imageClicked:hover { cursor: pointer; }
+
+.contentAfterClick {
+	width: 950px;
+	height: 600px;
+	z-index: 1;
+	background-color: #F00;
+}
+
+.minus {
+	width: 30px;
+	height: 30px;
+	background: url(image/minus.png) no-repeat center;
+}
+
+.minus:hover {
+	background: url(image/minusHover.png) no-repeat center;
+	cursor: pointer;
+}
+
+.menu {
+	width: 30px;
+	height: 30px;
+	background: url(image/menu.png) no-repeat center;
+}
+
+.menu:hover {
+	background: url(image/menuHover.png) no-repeat center;
+	cursor: pointer;
+}
