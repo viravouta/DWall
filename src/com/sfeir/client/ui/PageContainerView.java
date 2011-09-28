@@ -12,7 +12,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -108,7 +107,7 @@ public class PageContainerView extends Composite {
 		panel.getElement().getStyle().setLeft(319, Unit.PX);
 	    }
 
-	    ChocAnimation animation1 = new ChocAnimation(imageContainer1, 319, -99, 1, -299);
+	    final ChocAnimation animation1 = new ChocAnimation(imageContainer1, 319, -99, 1, -299);
 	    final ChocAnimation animation2 = new ChocAnimation(imageContainer2, 319, -99, 319, -299);
 	    final ChocAnimation animation3 = new ChocAnimation(imageContainer3, 319, -99, 637, -299);
 	    final ChocAnimation animation4 = new ChocAnimation(imageContainer4, 319, -99, 1, -99);
@@ -165,7 +164,7 @@ public class PageContainerView extends Composite {
 	            timer3.schedule(1000);
 	        }
 	    };
-	    Timer timer = new Timer() {
+	    final Timer timer1 = new Timer() {
 	        @Override
 	        public void run() {
 	            animation2.run(1000);
@@ -173,17 +172,15 @@ public class PageContainerView extends Composite {
 	        }
 	    };
 	    
+	    Timer timer = new Timer() {
+	        @Override
+	        public void run() {
+	            animation1.run(1000);
+	            timer1.schedule(1000);
+	        }
+	    };
 	    
-	    animation1.run(1000);
-	    
-	    timer.schedule(1000);
-//	    animation3.run(2000);
-//	    animation4.run(2000);
-//	    animation5.run(2000);
-//	    animation6.run(2000);
-//	    animation7.run(2000);
-//	    animation8.run(2000);
-//	    animation9.run(2000);
+	    timer.schedule(500);
 	}
 
 	/**
