@@ -74,6 +74,11 @@ public class PageContainerView extends Composite {
 	private boolean isMovePanelLocked;
 	
 	/**
+	 * Flag to lock full screen animation.
+	 */
+	private boolean isFullScreenAnimationLocked;
+	
+	/**
 	 * Full screen state.
 	 */
 	private boolean fullScreen;
@@ -148,6 +153,7 @@ public class PageContainerView extends Composite {
 		this.gridItems.add(new GridItem(image9, 2, 2));
 		
 		this.isMovePanelLocked = false;
+		this.isFullScreenAnimationLocked = false;
 		this.fullScreen = false;
 
 		this.contentAfterClickImage = new Image("image/42HD.png");
@@ -476,138 +482,145 @@ public class PageContainerView extends Composite {
 	/**
 	 * Images animation on click.
 	 */
-	private void imagesAnimationOnClick() {	
-		int row = 0;
-		int column = 0;
-		for(GridItem gridItem : this.gridItems) {
-			if(gridItem.getImage().equals(this.imageClicked)) {
-				row = gridItem.getRowNumber();
-				column = gridItem.getColumnNumber();
-			}
-		}
-		
-		// Zoom.
-		if(!this.fullScreen) {
-			this.fullScreen = true;
+	private void imagesAnimationOnClick() {
+		if(!this.isFullScreenAnimationLocked) {
+			this.isFullScreenAnimationLocked = true;
 			
-			movePanel.removeStyleName("movePanel");
-			movePanel.addStyleName("initialMovePanel");
-			
+			int row = 0;
+			int column = 0;
 			for(GridItem gridItem : this.gridItems) {
-				gridItem.getImage().setVisible(false);
+				if(gridItem.getImage().equals(this.imageClicked)) {
+					row = gridItem.getRowNumber();
+					column = gridItem.getColumnNumber();
+				}
 			}
 			
-			this.imageClicked.setVisible(true);
-			this.imageClicked.removeStyleName("image");
-			this.imageClicked.addStyleName("imageClicked");
-			
-			switch (row) {
-			case 1:
-				this.imageClicked.addStyleName("imageSecondRowClicked");
-				break;
-			case 2:
-				this.imageClicked.addStyleName("imageThirdRowClicked");
-				break;
-			default:
-				this.imageClicked.addStyleName("imageFirstRowClicked");
-			}
-			
-			switch (column) {
-			case 1:
-				this.imageClicked.addStyleName("imageSecondColumnClicked");
-				break;
-			case 2:
-				this.imageClicked.addStyleName("imageThirdColumnClicked");
-				break;
-			default:
-				this.imageClicked.addStyleName("imageFirstColumnClicked");
-			}
-			
-			this.timer = new Timer() {
+			// Zoom.
+			if(!this.fullScreen) {
+				this.fullScreen = true;
 				
-				@Override
-				public void run() {
-					wallContainer.remove(movePanel);
+				movePanel.removeStyleName("movePanel");
+				movePanel.addStyleName("initialMovePanel");
+				
+				for(GridItem gridItem : this.gridItems) {
+					gridItem.getImage().setVisible(false);
+				}
+				
+				this.imageClicked.setVisible(true);
+				this.imageClicked.removeStyleName("image");
+				this.imageClicked.addStyleName("imageClicked");
+				
+				switch (row) {
+				case 1:
+					this.imageClicked.addStyleName("imageSecondRowClicked");
+					break;
+				case 2:
+					this.imageClicked.addStyleName("imageThirdRowClicked");
+					break;
+				default:
+					this.imageClicked.addStyleName("imageFirstRowClicked");
+				}
+				
+				switch (column) {
+				case 1:
+					this.imageClicked.addStyleName("imageSecondColumnClicked");
+					break;
+				case 2:
+					this.imageClicked.addStyleName("imageThirdColumnClicked");
+					break;
+				default:
+					this.imageClicked.addStyleName("imageFirstColumnClicked");
+				}
+				
+				this.timer = new Timer() {
 					
-					final String imageClickedHD = PageContainerView.this.imageClicked.getUrl().substring(
-							0, 
-							(PageContainerView.this.imageClicked.getUrl().length() - 4)
-					);
-					
-					PageContainerView.this.contentAfterClickImage.setUrl(
-							imageClickedHD + 
-							"HD" + 
-							PageContainerView.this.imageClicked.getUrl().substring( 
-									(PageContainerView.this.imageClicked.getUrl().length() - 4)
-							)
-					);
-					
-					PageContainerView.this.wallContainer.remove(PageContainerView.this.gridContainer);
-					PageContainerView.this.wallContainer.add(PageContainerView.this.contentAfterClick);
-					
-					final Timer timer = new Timer() {
+					@Override
+					public void run() {
+						wallContainer.remove(movePanel);
+						PageContainerView.this.isFullScreenAnimationLocked = false;
 						
-						@Override
-						public void run() {
-							PageContainerView.this.minusButton.removeStyleName("initialMinus");
-							PageContainerView.this.menuButton.removeStyleName("initialMenu");
+						final String imageClickedHD = PageContainerView.this.imageClicked.getUrl().substring(
+								0, 
+								(PageContainerView.this.imageClicked.getUrl().length() - 4)
+						);
+						
+						PageContainerView.this.contentAfterClickImage.setUrl(
+								imageClickedHD + 
+								"HD" + 
+								PageContainerView.this.imageClicked.getUrl().substring( 
+										(PageContainerView.this.imageClicked.getUrl().length() - 4)
+								)
+						);
+						
+						PageContainerView.this.wallContainer.remove(PageContainerView.this.gridContainer);
+						PageContainerView.this.wallContainer.add(PageContainerView.this.contentAfterClick);
+						
+						final Timer timer = new Timer() {
 							
-							PageContainerView.this.minusButton.addStyleName("minus");
-							PageContainerView.this.menuButton.addStyleName("menu");
-						}
-					};
-					
-					timer.schedule(5);
-				}
-			};
-			
-			this.timer.schedule(1000);
-			
-		} else {	
-			this.fullScreen = false;
-			
-			this.imageClicked.addStyleName("image");
-			this.imageClicked.removeStyleName("imageClicked");
-			
-			switch (row) {
-			case 1:
-				this.imageClicked.removeStyleName("imageSecondRowClicked");
-				break;
-			case 2:
-				this.imageClicked.removeStyleName("imageThirdRowClicked");
-				break;
-			default:
-				this.imageClicked.removeStyleName("imageFirstRowClicked");
-			}
-			
-			switch (column) {
-			case 1:
-				this.imageClicked.removeStyleName("imageSecondColumnClicked");
-				break;
-			case 2:
-				this.imageClicked.removeStyleName("imageThirdColumnClicked");
-				break;
-			default:
-				this.imageClicked.removeStyleName("imageFirstColumnClicked");
-			}
-			
-			this.timer = new Timer() {
-				
-				@Override
-				public void run() {					
-					for(GridItem gridItem : PageContainerView.this.gridItems) {
-						gridItem.getImage().setVisible(true);
+							@Override
+							public void run() {
+								PageContainerView.this.minusButton.removeStyleName("initialMinus");
+								PageContainerView.this.menuButton.removeStyleName("initialMenu");
+								
+								PageContainerView.this.minusButton.addStyleName("minus");
+								PageContainerView.this.menuButton.addStyleName("menu");
+							}
+						};
+						
+						timer.schedule(5);
 					}
-
-					movePanel.removeStyleName("initialMovePanel");
-					movePanel.addStyleName("movePanel");
+				};
+				
+				this.timer.schedule(1000);
+				
+			} else {	
+				this.fullScreen = false;
+				
+				this.imageClicked.addStyleName("image");
+				this.imageClicked.removeStyleName("imageClicked");
+				
+				switch (row) {
+				case 1:
+					this.imageClicked.removeStyleName("imageSecondRowClicked");
+					break;
+				case 2:
+					this.imageClicked.removeStyleName("imageThirdRowClicked");
+					break;
+				default:
+					this.imageClicked.removeStyleName("imageFirstRowClicked");
 				}
-			};
-			
-			wallContainer.add(movePanel);
-			movePanel.addStyleName("initialMovePanel");
-			
-			this.timer.schedule(1000);
+				
+				switch (column) {
+				case 1:
+					this.imageClicked.removeStyleName("imageSecondColumnClicked");
+					break;
+				case 2:
+					this.imageClicked.removeStyleName("imageThirdColumnClicked");
+					break;
+				default:
+					this.imageClicked.removeStyleName("imageFirstColumnClicked");
+				}
+				
+				this.timer = new Timer() {
+					
+					@Override
+					public void run() {					
+						for(GridItem gridItem : PageContainerView.this.gridItems) {
+							gridItem.getImage().setVisible(true);
+						}
+	
+						movePanel.removeStyleName("initialMovePanel");
+						movePanel.addStyleName("movePanel");
+						
+						PageContainerView.this.isFullScreenAnimationLocked = false;
+					}
+				};
+				
+				wallContainer.add(movePanel);
+				movePanel.addStyleName("initialMovePanel");
+				
+				this.timer.schedule(1000);
+			}
 		}
 	}
 	

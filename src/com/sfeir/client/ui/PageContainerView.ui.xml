@@ -11,38 +11,19 @@
 				<g:row>
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer1">
-							<g:Image ui:field="image1" url="image/42.png" />
+							<g:Image ui:field="image1" url="image/1.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 					
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer2">
-							<g:Image ui:field="image2" url="image/couscous.jpg" />
+							<g:Image ui:field="image2" url="image/2.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 	
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer3">
-							<g:Image ui:field="image3" url="image/justeDebout.jpg" />
-						</g:SimplePanel>
-					</g:customCell>
-					
-					
-					<g:customCell>
-						<g:SimplePanel ui:field="imageContainer11">
-							<g:Image ui:field="image11" url="image/42.png" />
-						</g:SimplePanel>
-					</g:customCell>
-					
-					<g:customCell>
-						<g:SimplePanel ui:field="imageContainer12">
-							<g:Image ui:field="image12" url="image/couscous.jpg" />
-						</g:SimplePanel>
-					</g:customCell>
-	
-					<g:customCell>
-						<g:SimplePanel ui:field="imageContainer13">
-							<g:Image ui:field="image13" url="image/justeDebout.jpg" />
+							<g:Image ui:field="image3" url="image/3.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 				</g:row>
@@ -50,37 +31,19 @@
 				<g:row>
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer4">
-							<g:Image ui:field="image4" url="image/googleIO.jpg" />
+							<g:Image ui:field="image4" url="image/4.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 					
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer5">
-							<g:Image ui:field="image5" url="image/42.png" />
+							<g:Image ui:field="image5" url="image/5.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 	
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer6">
-							<g:Image ui:field="image6" url="image/couscous.jpg" />
-						</g:SimplePanel>
-					</g:customCell>
-					
-					<g:customCell>
-						<g:SimplePanel ui:field="imageContainer14">
-							<g:Image ui:field="image14" url="image/googleIO.jpg" />
-						</g:SimplePanel>
-					</g:customCell>
-					
-					<g:customCell>
-						<g:SimplePanel ui:field="imageContainer15">
-							<g:Image ui:field="image15" url="image/42.png" />
-						</g:SimplePanel>
-					</g:customCell>
-	
-					<g:customCell>
-						<g:SimplePanel ui:field="imageContainer16">
-							<g:Image ui:field="image16" url="image/couscous.jpg" />
+							<g:Image ui:field="image6" url="image/6.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 				</g:row>
@@ -88,37 +51,19 @@
 				<g:row>
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer7">
-							<g:Image ui:field="image7" url="image/justeDebout.jpg" />
+							<g:Image ui:field="image7" url="image/7.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 					
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer8">
-							<g:Image ui:field="image8" url="image/googleIO.jpg" />
+							<g:Image ui:field="image8" url="image/8.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 	
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer9">
-							<g:Image ui:field="image9" url="image/42.png" />
-						</g:SimplePanel>
-					</g:customCell>
-					
-					<g:customCell>
-						<g:SimplePanel ui:field="imageContainer17">
-							<g:Image ui:field="image17" url="image/justeDebout.jpg" />
-						</g:SimplePanel>
-					</g:customCell>
-					
-					<g:customCell>
-						<g:SimplePanel ui:field="imageContainer18">
-							<g:Image ui:field="image18" url="image/googleIO.jpg" />
-						</g:SimplePanel>
-					</g:customCell>
-	
-					<g:customCell>
-						<g:SimplePanel ui:field="imageContainer19">
-							<g:Image ui:field="image19" url="image/42.png" />
+							<g:Image ui:field="image9" url="image/9.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 				</g:row>
