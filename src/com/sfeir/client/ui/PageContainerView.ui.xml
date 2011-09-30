@@ -5,7 +5,7 @@
 	<ui:style>
 	</ui:style>
 	
-	<g:AbsolutePanel ui:field="wallContainer">
+	<g:AbsolutePanel ui:field="wallContainer">	
 		<g:SimplePanel ui:field="gridContainer">
 			<g:Grid ui:field="grid" cellSpacing="0">
 				<g:row>
@@ -24,6 +24,25 @@
 					<g:customCell>
 						<g:SimplePanel ui:field="imageContainer3">
 							<g:Image ui:field="image3" url="image/justeDebout.jpg" />
+						</g:SimplePanel>
+					</g:customCell>
+					
+					
+					<g:customCell>
+						<g:SimplePanel ui:field="imageContainer11">
+							<g:Image ui:field="image11" url="image/42.png" />
+						</g:SimplePanel>
+					</g:customCell>
+					
+					<g:customCell>
+						<g:SimplePanel ui:field="imageContainer12">
+							<g:Image ui:field="image12" url="image/couscous.jpg" />
+						</g:SimplePanel>
+					</g:customCell>
+	
+					<g:customCell>
+						<g:SimplePanel ui:field="imageContainer13">
+							<g:Image ui:field="image13" url="image/justeDebout.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
 				</g:row>
@@ -46,6 +65,24 @@
 							<g:Image ui:field="image6" url="image/couscous.jpg" />
 						</g:SimplePanel>
 					</g:customCell>
+					
+					<g:customCell>
+						<g:SimplePanel ui:field="imageContainer14">
+							<g:Image ui:field="image14" url="image/googleIO.jpg" />
+						</g:SimplePanel>
+					</g:customCell>
+					
+					<g:customCell>
+						<g:SimplePanel ui:field="imageContainer15">
+							<g:Image ui:field="image15" url="image/42.png" />
+						</g:SimplePanel>
+					</g:customCell>
+	
+					<g:customCell>
+						<g:SimplePanel ui:field="imageContainer16">
+							<g:Image ui:field="image16" url="image/couscous.jpg" />
+						</g:SimplePanel>
+					</g:customCell>
 				</g:row>
 				
 				<g:row>
@@ -66,8 +103,37 @@
 							<g:Image ui:field="image9" url="image/42.png" />
 						</g:SimplePanel>
 					</g:customCell>
+					
+					<g:customCell>
+						<g:SimplePanel ui:field="imageContainer17">
+							<g:Image ui:field="image17" url="image/justeDebout.jpg" />
+						</g:SimplePanel>
+					</g:customCell>
+					
+					<g:customCell>
+						<g:SimplePanel ui:field="imageContainer18">
+							<g:Image ui:field="image18" url="image/googleIO.jpg" />
+						</g:SimplePanel>
+					</g:customCell>
+	
+					<g:customCell>
+						<g:SimplePanel ui:field="imageContainer19">
+							<g:Image ui:field="image19" url="image/42.png" />
+						</g:SimplePanel>
+					</g:customCell>
 				</g:row>
 			</g:Grid>
 		</g:SimplePanel>
+		
+		<g:FlowPanel ui:field="movePanel">
+				<g:SimplePanel ui:field="topLeftBlock" />
+				<g:SimplePanel ui:field="topCenterBlock" />
+				<g:SimplePanel ui:field="topRightBlock" />
+				<g:SimplePanel ui:field="centerLeftBlock" />
+				<g:SimplePanel ui:field="centerRightBlock" />
+				<g:SimplePanel ui:field="bottomLeftBlock" />
+				<g:SimplePanel ui:field="bottomCenterBlock" />
+				<g:SimplePanel ui:field="bottomRightBlock" />
+		</g:FlowPanel>
 	</g:AbsolutePanel>
 </ui:UiBinder> 

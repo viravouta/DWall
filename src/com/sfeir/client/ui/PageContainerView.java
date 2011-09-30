@@ -19,15 +19,26 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.sfeir.client.animation.ChocAnimation;
+import com.sfeir.client.animation.ImageAnimation;
 
 /**
  * This class defines page container view.
  */
 public class PageContainerView extends Composite {
+	
+	/**
+	 * Horizontal move.
+	 */
+	public static final int HORIZONTAL_MOVE = 319;
+	
+	/**
+	 * Vertical move.
+	 */
+	public static final int VERTICAL_MOVE = 200;
 
 	@UiField
 	AbsolutePanel wallContainer;
+	
 	@UiField
 	SimplePanel gridContainer;
 	@UiField
@@ -37,6 +48,12 @@ public class PageContainerView extends Composite {
 	imageContainer5, imageContainer6, imageContainer7, imageContainer8, imageContainer9;
 	@UiField
 	Image image1, image2, image3, image4, image5, image6, image7, image8, image9;
+
+	@UiField
+	FlowPanel movePanel;
+	@UiField
+	SimplePanel topLeftBlock, topCenterBlock, topRightBlock, centerLeftBlock,
+	centerRightBlock, bottomLeftBlock, bottomCenterBlock, bottomRightBlock;
 	
 	interface PageContainerUiBinder extends UiBinder<Widget, PageContainerView> {}
 	private static PageContainerUiBinder uiBinder = GWT.create(PageContainerUiBinder.class);
@@ -51,6 +68,11 @@ public class PageContainerView extends Composite {
 	 */
 	private List<GridItem> gridItems;
 
+	/**
+	 * Flag to lock move panel.
+	 */
+	private boolean isMovePanelLocked;
+	
 	/**
 	 * Full screen state.
 	 */
@@ -96,91 +118,7 @@ public class PageContainerView extends Composite {
 		this.initWidgetsCss();
 		this.initWidgetsHandler();
 		
-		this.initAnimation();
-	}
-
-	private void initAnimation() {
-	    
-	    for(SimplePanel panel : imageContainers){
-		panel.getElement().getStyle().setPosition(Position.ABSOLUTE);
-		panel.getElement().getStyle().setTop(-99, Unit.PX);
-		panel.getElement().getStyle().setLeft(319, Unit.PX);
-	    }
-
-	    final ChocAnimation animation1 = new ChocAnimation(imageContainer1, 319, -99, 1, -299);
-	    final ChocAnimation animation2 = new ChocAnimation(imageContainer2, 319, -99, 319, -299);
-	    final ChocAnimation animation3 = new ChocAnimation(imageContainer3, 319, -99, 637, -299);
-	    final ChocAnimation animation4 = new ChocAnimation(imageContainer4, 319, -99, 1, -99);
-	    //final ChocAnimation animation5 = new ChocAnimation(imageContainer5, 319, -99, 319, -99);
-	    final ChocAnimation animation6 = new ChocAnimation(imageContainer6, 319, -99, 637, -99);
-	    final ChocAnimation animation7 = new ChocAnimation(imageContainer7, 319, -99, 1, 101);
-	    final ChocAnimation animation8 = new ChocAnimation(imageContainer8, 319, -99, 319, 101);
-	    final ChocAnimation animation9 = new ChocAnimation(imageContainer9, 319, -99, 637, 101);
-	    
-	    final Timer timer7 = new Timer() {
-	        @Override
-	        public void run() {
-	            animation9.run(1000);
-	        }
-	    };
-	    
-	    final Timer timer6 = new Timer() {
-	        @Override
-	        public void run() {
-	            animation8.run(1000);
-	            timer7.schedule(1000);
-	        }
-	    };
-	    
-	    
-	    final Timer timer5 = new Timer() {
-	        @Override
-	        public void run() {
-	            animation7.run(1000);
-	            timer6.schedule(1000);
-	        }
-	    };
-	    
-	    final Timer timer4 = new Timer() {
-	        @Override
-	        public void run() {
-	            animation6.run(1000);
-	            timer5.schedule(1000);
-	        }
-	    };
-	    
-	    final Timer timer3 = new Timer() {
-	        @Override
-	        public void run() {
-	            animation4.run(1000);
-	            timer4.schedule(1000);
-	        }
-	    };
-	    
-	    final Timer timer2 = new Timer() {
-	        @Override
-	        public void run() {
-	            animation3.run(1000);
-	            timer3.schedule(1000);
-	        }
-	    };
-	    final Timer timer1 = new Timer() {
-	        @Override
-	        public void run() {
-	            animation2.run(1000);
-	            timer2.schedule(1000);
-	        }
-	    };
-	    
-	    Timer timer = new Timer() {
-	        @Override
-	        public void run() {
-	            animation1.run(1000);
-	            timer1.schedule(1000);
-	        }
-	    };
-	    
-	    timer.schedule(500);
+		this.imagesAnimationOnEntry();
 	}
 
 	/**
@@ -209,6 +147,7 @@ public class PageContainerView extends Composite {
 		this.gridItems.add(new GridItem(image8, 2, 1));
 		this.gridItems.add(new GridItem(image9, 2, 2));
 		
+		this.isMovePanelLocked = false;
 		this.fullScreen = false;
 
 		this.contentAfterClickImage = new Image("image/42HD.png");
@@ -226,8 +165,31 @@ public class PageContainerView extends Composite {
 	 */
 	private void initWidgetsCss() {
 		wallContainer.addStyleName("wallContainer");
+
 		gridContainer.addStyleName("gridContainer");
 		grid.addStyleName("grid");
+		
+		movePanel.addStyleName("initialMovePanel");
+		
+		this.timer = new Timer() {
+			
+			@Override
+			public void run() {
+				movePanel.removeStyleName("initialMovePanel");
+				movePanel.addStyleName("movePanel");
+			}
+		};
+		this.timer.schedule(2000);
+		
+		topLeftBlock.addStyleName("topLeftBlock");
+		topCenterBlock.addStyleName("topCenterBlock");
+		topRightBlock.addStyleName("topRightBlock");
+		centerLeftBlock.addStyleName("centerLeftBlock");
+		centerRightBlock.addStyleName("centerRightBlock");
+		bottomLeftBlock.addStyleName("bottomLeftBlock");
+		bottomCenterBlock.addStyleName("bottomCenterBlock");
+		bottomRightBlock.addStyleName("bottomRightBlock");
+		
 		
 		for(SimplePanel imageContainer : this.imageContainers) {
 			imageContainer.addStyleName("imageContainer");
@@ -238,55 +200,286 @@ public class PageContainerView extends Composite {
 		}
 		
 		this.contentAfterClickImage.addStyleName("contentAfterClickImage");
-		this.minusButton.addStyleName("minus");
-		this.menuButton.addStyleName("menu");
+		
+		this.minusButton.addStyleName("initialMinus");
+		this.menuButton.addStyleName("initialMenu");
 	}
 	
 	/**
 	 * Initialization of widgets handler.
 	 */
 	private void initWidgetsHandler() {
+		
+		/** Move images panel part **/
+			
+		final ClickHandler onMovePanelClickTopLeft = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if(!PageContainerView.this.isMovePanelLocked) {
+					PageContainerView.this.isMovePanelLocked = true;
+					
+					for(GridItem gridItem : PageContainerView.this.gridItems) {
+						PageContainerView.this.movePanelImage(gridItem.getImage(), true, false, true, false);
+					}				
+				}
+			}
+		};
+		topLeftBlock.sinkEvents(Event.ONCLICK);
+		topLeftBlock.addHandler(onMovePanelClickTopLeft, ClickEvent.getType());
+		
+		final ClickHandler onMovePanelClickTop = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if(!PageContainerView.this.isMovePanelLocked) {
+					PageContainerView.this.isMovePanelLocked = true;
+					
+					for(GridItem gridItem : PageContainerView.this.gridItems) {
+						PageContainerView.this.movePanelImage(gridItem.getImage(), true, false, false, false);
+					}
+				}
+			}
+		};
+		topCenterBlock.sinkEvents(Event.ONCLICK);
+		topCenterBlock.addHandler(onMovePanelClickTop, ClickEvent.getType());
+		
+		final ClickHandler onMovePanelClickTopRight = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {if(!PageContainerView.this.isMovePanelLocked) {
+				PageContainerView.this.isMovePanelLocked = true;
+				
+					for(GridItem gridItem : PageContainerView.this.gridItems) {
+						PageContainerView.this.movePanelImage(gridItem.getImage(), true, false, false, true);
+					}
+				}
+			}
+		};
+		topRightBlock.sinkEvents(Event.ONCLICK);
+		topRightBlock.addHandler(onMovePanelClickTopRight, ClickEvent.getType());
+		
+		final ClickHandler onMovePanelClickLeft = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {if(!PageContainerView.this.isMovePanelLocked) {
+				PageContainerView.this.isMovePanelLocked = true;
+				
+					for(GridItem gridItem : PageContainerView.this.gridItems) {
+						PageContainerView.this.movePanelImage(gridItem.getImage(), false, false, true, false);
+					}
+				}
+			}
+		};
+		centerLeftBlock.sinkEvents(Event.ONCLICK);
+		centerLeftBlock.addHandler(onMovePanelClickLeft, ClickEvent.getType());
+		
+		final ClickHandler onMovePanelClickRight = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {if(!PageContainerView.this.isMovePanelLocked) {
+				PageContainerView.this.isMovePanelLocked = true;
+				
+					for(GridItem gridItem : PageContainerView.this.gridItems) {
+						PageContainerView.this.movePanelImage(gridItem.getImage(), false, false, false, true);
+					}
+				}
+			}
+		};
+		centerRightBlock.sinkEvents(Event.ONCLICK);
+		centerRightBlock.addHandler(onMovePanelClickRight, ClickEvent.getType());
+		
+		final ClickHandler onMovePanelClickBottomLeft = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {if(!PageContainerView.this.isMovePanelLocked) {
+				PageContainerView.this.isMovePanelLocked = true;
+				
+					for(GridItem gridItem : PageContainerView.this.gridItems) {
+						PageContainerView.this.movePanelImage(gridItem.getImage(), false, true, true, false);
+					}
+				}
+			}
+		};
+		bottomLeftBlock.sinkEvents(Event.ONCLICK);
+		bottomLeftBlock.addHandler(onMovePanelClickBottomLeft, ClickEvent.getType());
+		
+		final ClickHandler onMovePanelClickBottom = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {if(!PageContainerView.this.isMovePanelLocked) {
+				PageContainerView.this.isMovePanelLocked = true;
+				
+					for(GridItem gridItem : PageContainerView.this.gridItems) {
+						PageContainerView.this.movePanelImage(gridItem.getImage(), false, true, false, false);
+					}	
+				}				
+			}
+		};
+		bottomCenterBlock.sinkEvents(Event.ONCLICK);
+		bottomCenterBlock.addHandler(onMovePanelClickBottom, ClickEvent.getType());
+		
+		final ClickHandler onMovePanelClickBottomRight = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {if(!PageContainerView.this.isMovePanelLocked) {
+				PageContainerView.this.isMovePanelLocked = true;
+				
+					for(GridItem gridItem : PageContainerView.this.gridItems) {
+						PageContainerView.this.movePanelImage(gridItem.getImage(), false, true, false, true);
+					}	
+				}
+			}
+		};
+		bottomRightBlock.sinkEvents(Event.ONCLICK);
+		bottomRightBlock.addHandler(onMovePanelClickBottomRight, ClickEvent.getType());
+
+		/** On click image part **/
+		
 		final ClickHandler onClickImage = new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
 				PageContainerView.this.imageClicked = (Image)event.getSource();
 				
-				PageContainerView.this.imageAnimation();
+				PageContainerView.this.imagesAnimationOnClick();
 			}
 		};
 		
 		for(GridItem gridItem : this.gridItems) {
 			gridItem.getImage().addClickHandler(onClickImage);
 		}
+
+	
+		/** Handler image part **/
 		
 		final ClickHandler onMinusButtonClick = new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				PageContainerView.this.wallContainer.remove(PageContainerView.this.contentAfterClick);
-				PageContainerView.this.wallContainer.add(PageContainerView.this.gridContainer);
-				
 				PageContainerView.this.timer = new Timer() {
 					
 					@Override
 					public void run() {
-						PageContainerView.this.imageAnimation();
+						PageContainerView.this.wallContainer.remove(PageContainerView.this.contentAfterClick);
+						PageContainerView.this.wallContainer.add(PageContainerView.this.gridContainer);
+						
+						final Timer timer = new Timer() {
+							
+							@Override
+							public void run() {
+								PageContainerView.this.imagesAnimationOnClick();
+							}
+						};
+						
+						timer.schedule(100);
 					}
 				};
 				
-				PageContainerView.this.timer.schedule(100);
+				PageContainerView.this.minusButton.removeStyleName("minus");
+				PageContainerView.this.menuButton.removeStyleName("menu");
 				
+				PageContainerView.this.minusButton.addStyleName("initialMinus");
+				PageContainerView.this.menuButton.addStyleName("initialMenu");
+				
+				PageContainerView.this.timer.schedule(500);
 			}
 		};
 		this.minusButton.sinkEvents(Event.ONCLICK);
 		this.minusButton.addHandler(onMinusButtonClick, ClickEvent.getType());
 	}
+
+	/**
+	 * Images animation on entry.
+	 */
+	private void imagesAnimationOnEntry() {
+	    for(GridItem gridItem: this.gridItems) {
+	    	gridItem.getImage().getElement().getStyle().setPosition(Position.ABSOLUTE);
+	    	gridItem.getImage().getElement().getStyle().setTop(-99, Unit.PX);
+	    	gridItem.getImage().getElement().getStyle().setLeft(319, Unit.PX);
+	    }
+	    
+	    final ImageAnimation animation1 = new ImageAnimation(image1, 319, -99, 0, -299);
+	    final ImageAnimation animation2 = new ImageAnimation(image2, 319, -99, 319, -299);
+	    final ImageAnimation animation3 = new ImageAnimation(image3, 319, -99, 637, -299);
+	    final ImageAnimation animation4 = new ImageAnimation(image4, 319, -99, 0, -99);
+	    final ImageAnimation animation6 = new ImageAnimation(image6, 319, -99, 637, -99);
+	    final ImageAnimation animation7 = new ImageAnimation(image7, 319, -99, 0, 101);
+	    final ImageAnimation animation8 = new ImageAnimation(image8, 319, -99, 319, 101);
+	    final ImageAnimation animation9 = new ImageAnimation(image9, 319, -99, 637, 101);
+	    
+	    final Timer timer1 = new Timer() {
+	        @Override
+	        public void run() {
+	            animation1.run(500);
+	            animation2.run(500);
+	            animation3.run(500);
+	            animation4.run(500);
+	            animation6.run(500);
+	            animation7.run(500);
+	            animation8.run(500);
+	            animation9.run(500);
+	        }
+	    };
+	    
+	    timer1.schedule(200);
+	}
 	
-	private void imageAnimation() {	
+	/**
+	 * Move panel image.
+	 * 
+	 * @param image image to move.
+	 * @param top state of top move.
+	 * @param bottom state of bottom move.
+	 * @param left state of left move.
+	 * @param right state of right move.
+	 */
+	private void movePanelImage(Image image, boolean top, boolean bottom, boolean left, boolean right) {
+		if(top) {
+			image.getElement().getStyle().setTop(
+					image.getElement().getOffsetTop() - VERTICAL_MOVE, 
+					Unit.PX
+			);			
+		}
+		
+		if(bottom) {
+			image.getElement().getStyle().setTop(
+					image.getElement().getOffsetTop() + VERTICAL_MOVE, 
+					Unit.PX
+			);	
+		}
+		
+		if(left) {
+			image.getElement().getStyle().setLeft(
+					image.getElement().getOffsetLeft() - HORIZONTAL_MOVE, 
+					Unit.PX
+			);
+		}
+		
+		if(right) {
+			image.getElement().getStyle().setLeft(
+					image.getElement().getOffsetLeft() + HORIZONTAL_MOVE, 
+					Unit.PX
+			);
+		}
+		
+		this.timer = new Timer() {
+			
+			@Override
+			public void run() {
+				PageContainerView.this.isMovePanelLocked = false;
+			}
+		};
+		this.timer.schedule(1200);
+	}
+	
+	/**
+	 * Images animation on click.
+	 */
+	private void imagesAnimationOnClick() {	
 		int row = 0;
 		int column = 0;
-		for(GridItem gridItem : PageContainerView.this.gridItems) {
+		for(GridItem gridItem : this.gridItems) {
 			if(gridItem.getImage().equals(this.imageClicked)) {
 				row = gridItem.getRowNumber();
 				column = gridItem.getColumnNumber();
@@ -294,10 +487,13 @@ public class PageContainerView extends Composite {
 		}
 		
 		// Zoom.
-		if(!PageContainerView.this.fullScreen) {
-			PageContainerView.this.fullScreen = true;
+		if(!this.fullScreen) {
+			this.fullScreen = true;
 			
-			for(GridItem gridItem : PageContainerView.this.gridItems) {
+			movePanel.removeStyleName("movePanel");
+			movePanel.addStyleName("initialMovePanel");
+			
+			for(GridItem gridItem : this.gridItems) {
 				gridItem.getImage().setVisible(false);
 			}
 			
@@ -327,10 +523,12 @@ public class PageContainerView extends Composite {
 				this.imageClicked.addStyleName("imageFirstColumnClicked");
 			}
 			
-			PageContainerView.this.timer = new Timer() {
+			this.timer = new Timer() {
 				
 				@Override
 				public void run() {
+					wallContainer.remove(movePanel);
+					
 					final String imageClickedHD = PageContainerView.this.imageClicked.getUrl().substring(
 							0, 
 							(PageContainerView.this.imageClicked.getUrl().length() - 4)
@@ -346,13 +544,27 @@ public class PageContainerView extends Composite {
 					
 					PageContainerView.this.wallContainer.remove(PageContainerView.this.gridContainer);
 					PageContainerView.this.wallContainer.add(PageContainerView.this.contentAfterClick);
+					
+					final Timer timer = new Timer() {
+						
+						@Override
+						public void run() {
+							PageContainerView.this.minusButton.removeStyleName("initialMinus");
+							PageContainerView.this.menuButton.removeStyleName("initialMenu");
+							
+							PageContainerView.this.minusButton.addStyleName("minus");
+							PageContainerView.this.menuButton.addStyleName("menu");
+						}
+					};
+					
+					timer.schedule(5);
 				}
 			};
 			
-			PageContainerView.this.timer.schedule(1000);
+			this.timer.schedule(1000);
 			
 		} else {	
-			PageContainerView.this.fullScreen = false;
+			this.fullScreen = false;
 			
 			this.imageClicked.addStyleName("image");
 			this.imageClicked.removeStyleName("imageClicked");
@@ -379,17 +591,23 @@ public class PageContainerView extends Composite {
 				this.imageClicked.removeStyleName("imageFirstColumnClicked");
 			}
 			
-			PageContainerView.this.timer = new Timer() {
+			this.timer = new Timer() {
 				
 				@Override
-				public void run() {
+				public void run() {					
 					for(GridItem gridItem : PageContainerView.this.gridItems) {
 						gridItem.getImage().setVisible(true);
 					}
+
+					movePanel.removeStyleName("initialMovePanel");
+					movePanel.addStyleName("movePanel");
 				}
 			};
 			
-			PageContainerView.this.timer.schedule(1000);
+			wallContainer.add(movePanel);
+			movePanel.addStyleName("initialMovePanel");
+			
+			this.timer.schedule(1000);
 		}
 	}
 	
